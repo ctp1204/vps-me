@@ -1,0 +1,20 @@
+services:
+  windows:
+    image: dockurr/windows
+    container_name: windows
+    environment:
+      VERSION: "11"          # Phiên bản Windows, ví dụ: "11" cho Windows 11
+      RAM_SIZE: "8G"         # Dung lượng RAM mong muốn
+      CPU_CORES: "4"         # Số lõi CPU
+      DISK_SIZE: "256G"      # Dung lượng ổ đĩa
+    devices:
+      - /dev/kvm             # Kích hoạt tăng tốc KVM
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8006:8006            # Cổng truy cập giao diện web
+      - 3389:3389/tcp        # Cổng RDP
+      - 3389:3389/udp
+    volumes:
+      - ./windows:/storage   # Thư mục lưu trữ dữ liệu máy ảo
+    restart: always
